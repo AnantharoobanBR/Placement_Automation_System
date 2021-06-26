@@ -1,0 +1,227 @@
+<?php
+include "includes/header.php";
+$set_value = 1;
+$error = '0';
+if(isset($_SESSION['admin'])){
+    header("Location: dashboard.php");
+}
+if(!(isset($_SESSION['name'])&&isset($_SESSION['email'])))
+    header("Location: login.php");
+else {
+    $id = trim($_SESSION['id']);
+    $sql = "SELECT *
+               FROM profile
+               WHERE uid='$id'";
+    $result = mysqli_query($con, $sql);
+    $row = mysqli_fetch_array($result);
+
+    $name = $_SESSION['name'];
+    $email = $_SESSION['email'];
+
+    if($row['resume']=="")
+        $resume = 'dr.pdf';
+    else
+        $resume = $row['resume'];
+
+    if($row['profile_image']=="")
+        $profile_image = 'co.png';
+    else
+        $profile_image = $row['profile_image'];
+
+    if($row['mobile']=="")
+        $mobile = 'KINDLY UPDATE YOUR PROFILE';
+    else
+        $mobile = $row['mobile'];
+
+    if($row['dob']=="")
+        $dob = 'KINDLY UPDATE YOUR PROFILE';
+    else
+        $dob = $row['dob'];
+
+    if($row['ssc_marks']==0)
+        $ssc_marks = 'KINDLY UPDATE YOUR PROFILE';
+    else
+        $ssc_marks = $row['ssc_marks'];
+
+    if($row['hsc_marks']==0)
+        $hsc_marks = 'KINDLY UPDATE YOUR PROFILE';
+    else
+        $hsc_marks = $row['hsc_marks'];
+
+    if($row['graduation']=="")
+        $graduation = 'KINDLY UPDATE YOUR PROFILE';
+    else
+        $graduation = $row['graduation'];
+
+    if($row['graduation_discipline']=="")
+        $graduation_discipline = 'KINDLY UPDATE YOUR PROFILE';
+    else
+        $graduation_discipline = $row['graduation_discipline'];
+
+    if($row['graduation_marks']==0)
+        $graduation_marks = 'KINDLY UPDATE YOUR PROFILE';
+    else
+        $graduation_marks = $row['graduation_marks'];
+
+    // if($row['post_graduation']=="")
+    //     $post_graduation = 'KINDLY UPDATE YOUR PROFILE (if completed)';
+    // else
+    //     $post_graduation = $row['post_graduation'];
+
+    // if($row['post_graduation_discipline']=="")
+    //     $post_graduation_discipline = 'KINDLY UPDATE YOUR PROFILE (if completed)';
+    // else
+    //     $post_graduation_discipline = $row['post_graduation_discipline'];
+
+    // if($row['post_graduation_marks']==0)
+    //     $post_graduation_marks = 'KINDLY UPDATE YOUR PROFILE (if completed)';
+    // else
+    //     $post_graduation_marks = $row['post_graduation_marks'];
+
+    if($row['gender']=="")
+        $gender = 'KINDLY UPDATE YOUR PROFILE';
+    else
+        $gender = $row['gender'];
+}
+?>
+    <div class="col-md-12 main" style="padding-top: 20px;">
+        <!-- login-page -->
+        <div class="col-md-3" >
+            <center>
+                <img src="image_uploads/<?php echo $profile_image; ?>" width="150px" class="img-responsive" alt="profile-Image">
+            </center>
+        </div>
+        <div class="col-md-5">
+            <div class="outer">
+                <div class="middle">
+                    <div class="inner">
+                        <h1><?php echo $name; ?></h1>
+                        <p><?php echo $email; ?></p>
+                        <br>
+                        <div class="col-md-6">
+                            <h4><a href="resume_uploads/<?php echo $resume; ?>" target="_blank"><u><i class="glyphicon glyphicon-file"></i>VIEW RESUME</u></a></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+        <div class="col-md-12 main" style="padding-top: 20px;">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-8"">
+                <h4>PERSONAL INFORMATION</h4>
+                    <style>
+                        table {
+                            border-collapse: collapse;
+                            width: 100%;
+                        }
+
+                        th, td {
+                            text-align: left;
+                            padding: 8px;
+                        }
+
+                        tr:nth-child(even){background-color: #f2f2f2}
+
+                        th {
+                            background-color: rgba(18, 149, 201, 0.69);
+                            color: white;
+                        }
+                    </style>
+                    <table border="3px" width="100%">
+                        <tr>
+                            <th>NAME</th>
+                            <td><?php echo $name; ?></td>
+                        </tr>
+                        <tr>
+                            <th>MAIL-ID</th>
+                            <td><?php echo $email; ?></td>
+                        </tr>
+                        <tr>
+                            <th>CONTACT NO.</th>
+                            <td><?php echo $mobile; ?></td>
+                        </tr>
+                        <tr>
+                            <th>DATE OF BIRTH</th>
+                            <td><?php echo $dob; ?></td>
+                        </tr>
+                        <tr>
+                            <th>GENDER</th>
+                            <td><?php echo $gender; ?></td>
+                        </tr>
+                    </table>
+                    <br>
+                    <h4>EDUCATIONAL INFORMATION</h4>
+                    <table border="3px" width="100%">
+                        <tr>
+                            <th>SSC %</th>
+                            <td><?php echo $ssc_marks; ?></td>
+                        </tr>
+                        <tr>
+                            <th>HSC %</th>
+                            <td><?php echo $hsc_marks; ?></td>
+                        </tr>
+                        <tr>
+                            <th>GRADUATION DOMAIN</th>
+                            <td><?php echo $graduation; ?></td>
+                        </tr>
+                        <tr>
+                            <th>&nbsp&nbsp&nbsp&nbsp&nbspGRADUATION DISCIPLINE</th>
+                            <td><?php echo $graduation_discipline; ?></td>
+                        </tr>
+                        <tr>
+                            <th>&nbsp&nbsp&nbsp&nbsp&nbspGRADUATION CGPA</th>
+                            <td><?php echo $graduation_marks; ?></td>
+                        </tr>
+            
+                    </table>
+                <br><br><center><a href="edit_profile.php"><button class="btn-info">EDIT THE PROFILE</button></center></a><br>
+                </div>
+    <div class="clearfix"></div>
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <h4>COMPANIES THAT ARE ENROLLED</h4>
+        <?php
+        $sql = "SELECT * FROM company 
+                WHERE comp_id IN 
+                (
+                  SELECT comp_id
+                  FROM drive
+                  WHERE drive_id IN 
+                  (
+                    SELECT drive_id
+                    FROM enrolled_students
+                    WHERE user_id='$id'
+                  )
+                )";
+        $result = mysqli_query($con, $sql);
+        while($row = mysqli_fetch_assoc($result)){
+            $id = $row['comp_id'];
+            $name = $row['comp_name'];
+            $branch = $row['comp_city'];
+            $url = $row['comp_link'];
+            echo '
+                            <div class="editor-pics">
+                                <div class="col-md-10 item-details" style="border: #14bcd5 solid 1px; padding: 10px">
+                                    <h4 class="inner two"><a href="view_company.php?id='.$id.'">'.$name.'</a>
+                                    </h4>
+                                    <h5>&nbspBranch: '.$branch.'&nbsp&nbsp&nbsp
+                                    <a href="http://'.$url.'" target="_blank">'.$url.'</a>
+                                    </h5>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        ';
+        }
+        ?>
+    </div>
+    <div class="col-md-1"></div>
+    </div>
+    </div>
+    <!-- //login-page -->
+    <div class="clearfix"> </div>
+<?php
+include "includes/footer.php";
+?>

@@ -1,2 +1,3 @@
-# Placement_Automation_System
-The placement provides the opportunity for the students to gain Specific Subject skills as well as Real work employability skills. Placement Offices play a crucial role in providing students the necessary training and various opportunities where the students can effectively evidence their various skills and abilities on their Resume. Hence, the Automation of Placement office provides a more smooth Placement process for both the companies and the students. PLACEMENT OFFICE AUTOMATION SYSTEM mainly focuses on flows between the Company’s activity, Registration, Resumes, Users and their Skills. Hence, the system comprises five modules namely, Registration module, Student module, Admin module, Drive module, and Resume &amp; Image upload module.
+# Placement Automation System Using PHP
+
+This project is created for the training and placement department for the automation of campus drives, and generation of reports.
